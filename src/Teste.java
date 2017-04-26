@@ -10,13 +10,13 @@ import java.util.Random;
 public class Teste {
 	
 	public static void main(String[] args) throws IOException {
-		int nVezes = 1;
+		int nVezes = 5;
 //		String nomeArquivo = "lin15.tsp";
 		int maxIteracoesGRASP = 5;
 		int melhorMaxIteracoesGRASP = -1;
 		int maxIteracoesVNS = 5;
 		int melhorMaxIteracoesVNS = -1;
-		double alpha = 0.1;
+		double alpha = 0.5;
 		double melhorAlpha = -1;
 		int numeroInstancia = 0;
 		//tempo
@@ -37,14 +37,14 @@ public class Teste {
 //		instancias.add("pr76.tsp");
 //		instancias.add("pr107.tsp");
 //		instancias.add("d198.tsp");
-		instancias.add("d493.tsp");
+//		instancias.add("d493.tsp");
 //		instancias.add("d657.tsp");
 //		instancias.add("gil262.tsp");
 //		instancias.add("lin105.tsp");
 //		instancias.add("p654.tsp");
 //		instancias.add("pcb442.tsp");
 //		instancias.add("pr107.tsp");
-//		instancias.add("pr124.tsp");
+		instancias.add("pr124.tsp");
 //		instancias.add("pr144.tsp");
 //		instancias.add("pr152.tsp");
 //		instancias.add("pr226.tsp");
@@ -96,13 +96,14 @@ public class Teste {
 					e.printStackTrace();
 				}
 				System.out.println("Terminou "+instancias.get(numeroInstancia)+" "+i);
+				System.out.println("Custo "+s.custo()+" alpha "+alpha);
 				if(s.custo() < sBest.custo()){
 					sBest = s;
 					melhorAlpha = alpha;
 					melhorMaxIteracoesGRASP = maxIteracoesGRASP;
 					melhorMaxIteracoesVNS = maxIteracoesVNS;
 				}
-				alpha = (alpha + 0.1)%1;
+//				alpha = (alpha + 0.1)%1;
 			
 			}
 			tempoMedio = tempoTotal/nVezes;

@@ -196,7 +196,7 @@ public class VNS {
 		int k;
 		int nVertices = s.vertices().size();
 		
-		System.out.println("2-Opt:");
+//		System.out.println("2-Opt:");
 		while(melhorou){
 			melhorou = false;
 			for(i = 0; i < nVertices-3; i++){
@@ -209,7 +209,7 @@ public class VNS {
 					}
 				}
 				if(melhorou){
-					System.out.print(" m");
+//					System.out.print(" m");
 					break;
 				}
 			}
@@ -276,6 +276,56 @@ public class VNS {
 		return sf;
 	}
 	
+	private static Solucao doisOptJump(Solucao s, int k){
+		int tamanhoBloco;
+		int tamanhoSolucao;
+		int i;
+		int vInicial;
+		int proximoBloco;
+		tamanhoSolucao = s.vertices().size();
+		Random random = new Random();
+		vInicial = random.nextInt(tamanhoSolucao);
+		
+		tamanhoBloco = tamanhoSolucao/k;
+		
+		for(i=0; i<k; i++){
+			proximoBloco = (vInicial+(i*tamanhoBloco))%tamanhoSolucao;
+			s = doisOptParcial(s, proximoBloco, tamanhoBloco);
+		}
+		
+		return s;
+	}
+	
+	private static Solucao doisOptParcial(Solucao s, int inicioBloco, int tamanhoBloco){
+		Solucao sBest = s.clone();
+		boolean melhorou = true;
+		int i;
+		int k;
+		int inicio;
+		int fim;
+		int nVertices;
+		nVertices = s.vertices().size();
+		
+		while(melhorou){
+			melhorou = false;
+			for(i = 0; i < tamanhoBloco-3; i++){
+				inicio = (inicioBloco+i)%nVertices;
+				for(k = i+3; k < tamanhoBloco; k++){
+					fim = (inicioBloco+k)%nVertices;
+					if(custoCaminho(sBest, inicio, fim, true) < custoCaminho(sBest, inicio, fim, false)){
+						sBest = flip(sBest, inicio, fim);
+						melhorou = true;
+						break;
+					}
+				}
+				if(melhorou){
+					break;
+				}
+			}
+		}
+		return sBest;
+	}
+	
 	public static Solucao vns(Solucao s, int nIteracoes){
 		int i = 0;
 		int k;
@@ -285,9 +335,9 @@ public class VNS {
 		
 		while(i <= nIteracoes){
 			k = 1;
-			System.out.println("\nvns i: "+i);
+//			System.out.println("\nvns i: "+i);
 			while(k <= kMax){				
-				System.out.print("vns k: "+k);
+//				System.out.print("vns k: "+k);
 				s1 = shaking(s.clone(), k);
 				s2 = doisOpt(s1.clone());
 //				s2 = buscaLocalRapida(s1.clone(), 1, nIteracoes);
@@ -304,5 +354,32 @@ public class VNS {
 		return s;
 	}
 	
+	public static Solucao vnsJump(Solucao s, int nIteracoes){
+		int i = 0;
+		int k;
+		int kMax = 5;
+		Solucao s1;
+		Solucao s2;
+		
+		while(i <= nIteracoes){
+			k = 1;
+			System.out.println("\nvns i: "+i);
+			while(k <= kMax){				
+				System.out.print("vns k: "+k);
+				s1 = shaking(s.clone(), k);
+				s2 = doisOptJump(s1.clone(), k);
+//				s2 = buscaLocalRapida(s1.clone(), 1, nIteracoes);
+				
+				if(s2.custo() < s.custo()){
+					s = s2;
+					k = 1;
+				}else{
+					k++;
+				}
+			}
+			i++;
+		}	
+		return s;
+	}
 	
 }

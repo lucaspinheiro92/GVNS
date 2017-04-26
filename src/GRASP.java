@@ -162,13 +162,29 @@ public class GRASP {
 		return listaDistancias;
 	}
 	
-	public static Solucao grasp(String nomeArquivo, int maxIteracoesGRASP, int maxIteracoesVNS, double alpha, OutputStream out, OutputStreamWriter isw, BufferedWriter bw) throws IOException{
-//		long tempoInicial;
-//		long tempoFinal;
-//		long tempoTotal;
+	public static Solucao grasp(String nomeArquivo, int maxIteracoesGRASP, int maxIteracoesVNS, double alpha, OutputStream out, OutputStreamWriter isw, BufferedWriter bw) throws IOException{		
+		mapaVertices = new HashMap<>();
+		Solucao s;
+		Solucao sBest;
+		criaArestas(nomeArquivo);
+		int t = 0;
+
+		sBest = new Solucao(null, Constantes.pesoMaximo,null);
+		while(t < maxIteracoesGRASP){
+//			System.out.println("GRASP t "+t);
+			s = semiGuloso(Utils.cidadeAleatoria(), alpha);
+			s = VNS.vns(s.clone(), maxIteracoesVNS);
+			//se a solucao encontrada for viavel e o custo for menor que a melhor, atualize a melhor solucao
+			if(s.custo() < sBest.custo() && Utils.isSolucaoViavel(s, mapaVertices)){
+				sBest = s;
+			}
+			t++;
+		}
 		
-//		tempoInicial = System.currentTimeMillis();
-		
+		return sBest;
+	}
+	
+	public static Solucao graspJump(String nomeArquivo, int maxIteracoesGRASP, int maxIteracoesVNS, double alpha, OutputStream out, OutputStreamWriter isw, BufferedWriter bw) throws IOException{		
 		mapaVertices = new HashMap<>();
 		Solucao s;
 		Solucao sBest;
@@ -179,7 +195,7 @@ public class GRASP {
 		while(t < maxIteracoesGRASP){
 			System.out.println("GRASP t "+t);
 			s = semiGuloso(Utils.cidadeAleatoria(), alpha);
-			s = VNS.vns(s.clone(), maxIteracoesVNS);
+			s = VNS.vnsJump(s.clone(), maxIteracoesVNS);
 			//se a solucao encontrada for viavel e o custo for menor que a melhor, atualize a melhor solucao
 			if(s.custo() < sBest.custo() && Utils.isSolucaoViavel(s, mapaVertices)){
 				sBest = s;
@@ -187,11 +203,8 @@ public class GRASP {
 			t++;
 		}
 		
-//		tempoFinal = System.currentTimeMillis();
-//		tempoTotal = tempoFinal - tempoInicial;
-		
-//		Utils.imprimeResultadoArquivo(sBest, tempoTotal, out, isw, bw);
 		return sBest;
 	}
+
 	
 }
