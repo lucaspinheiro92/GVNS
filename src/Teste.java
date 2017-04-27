@@ -128,8 +128,8 @@ public class Teste {
 	private static void testeAlpha() throws IOException {
 		HashMap<Double, Double> alphas = new HashMap<>();
 		HashMap<Double, Integer> melhoresAlphas = new HashMap<>();
-		int nVezes = 20;
-		int nAlphaRepetido = 4;
+		int nVezes = 3;
+		int nAlphaRepetido = 1;
 //		String nomeArquivo = "lin15.tsp";
 		int maxIteracoesGRASP = 5;
 		int melhorMaxIteracoesGRASP = -1;
@@ -150,28 +150,29 @@ public class Teste {
 		long tiPrograma;
 		long tfPrograma;
 		long ttotalPrograma;
+		Random rand = new Random();
 		tiPrograma = System.currentTimeMillis();
 		
 		ArrayList<String> instancias = new ArrayList<>();
-		instancias.add("lin105.tsp");
-		instancias.add("pr107.tsp");
-		instancias.add("pr124.tsp");
-		instancias.add("pr144.tsp");
-		instancias.add("pr152.tsp");
-		instancias.add("rat195.tsp");
-		instancias.add("d198.tsp");
-		instancias.add("pr226.tsp");
-		instancias.add("gil262.tsp");
-		instancias.add("pr264.tsp");
-		instancias.add("pr299.tsp");
+//		instancias.add("lin105.tsp");
+//		instancias.add("pr107.tsp");
+//		instancias.add("pr124.tsp");
+//		instancias.add("pr144.tsp");
+//		instancias.add("pr152.tsp");
+//		instancias.add("rat195.tsp");
+//		instancias.add("d198.tsp");
+//		instancias.add("pr226.tsp");
+//		instancias.add("gil262.tsp");
+//		instancias.add("pr264.tsp");
+//		instancias.add("pr299.tsp");
 //		instancias.add("rd400.tsp");
 //		instancias.add("pr439.tsp");
 //		instancias.add("pcb442.tsp");
-//		instancias.add("d493.tsp");
-//		instancias.add("rat575.tsp");
-//		instancias.add("p654.tsp");
-//		instancias.add("d657.tsp");
-//		instancias.add("rat783.tsp");
+		instancias.add("d493.tsp");
+		instancias.add("rat575.tsp");
+		instancias.add("p654.tsp");
+		instancias.add("d657.tsp");
+		instancias.add("rat783.tsp");
 		
 		
 		Solucao s = null;
@@ -213,13 +214,14 @@ public class Teste {
 					}
 					
 					tempoTotal += tempoExecucao;
-					Utils.imprimeResultadoArquivo(s, tempoExecucao, out, isw, bw);
+//					Utils.imprimeResultadoArquivo(s, tempoExecucao, out, isw, bw);
+					Utils.imprimeResultadoInstancia(s, instancias.get(numeroInstancia), melhorMaxIteracoesGRASP, melhorMaxIteracoesVNS, alpha, tempoExecucao);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println("Terminou "+instancias.get(numeroInstancia)+" "+i);
-				System.out.println("Custo "+s.custo()+" alpha "+alpha);
+//				System.out.println("Custo "+s.custo()+" alpha "+alpha);
 				if(s.custo() < sBest.custo()){
 					sBest = s;
 					melhorAlpha = alpha;
@@ -266,8 +268,17 @@ public class Teste {
 			tempoTotal = 0;
 		}
 		
-		
-		
+		//rodar lista de alphas
+		//vou fazer mais nao. Vou mandar pro arquivo
+		/*Double melhorAlphaMedio = null;
+		Integer qtdMelhorAlpha = null;
+		for(Double chave : melhoresAlphas.keySet()){
+			if( (melhorAlphaMedio == null) || (melhoresAlphas.get(chave) > qtdMelhorAlpha) ){
+				qtdMelhorAlpha = melhoresAlphas.get(chave);
+				melhorAlphaMedio = chave;
+			}
+		}*/
+		Utils.imprimeTesteAlphas("alphas.txt", melhoresAlphas, nVezes, instancias.size());
 //		Utils.imprimeMelhorResultado(sBest, instancias.get(numeroInstancia), melhorMaxIteracoesGRASP,melhorMaxIteracoesVNS, melhorAlpha);
 		bw.close();
 		tfPrograma = System.currentTimeMillis();

@@ -53,16 +53,6 @@ public class Utils {
 		System.out.println(s.vertices().get(0));
 	}
 	
-//	public static void imprimeVerticesSolucaoArquivo(Solucao s) throws IOException{
-//		OutputStream out = new FileOutputStream("instancias/saidaVertices.txt");
-//		OutputStreamWriter isw = new OutputStreamWriter(out);
-//		BufferedWriter bw = new BufferedWriter(isw);
-//		for(Integer v : s.vertices()){
-//			bw.write(v+"-");
-//		}
-//		bw.write(""+s.vertices().get(0));
-//		bw.close();
-//	}
 	
 	public static void imprimeParametrosArquivo(String nomeArquivo, int maxIteracoesGRASP,int maxIteracoesVNS, double alpha,OutputStream out, OutputStreamWriter isw,BufferedWriter bw) throws IOException{		
 		bw.write("-----------------------------------------------------\n");
@@ -74,13 +64,40 @@ public class Utils {
 	}
 	
 	
+	public static void imprimeTesteAlphas(String nomeArquivo, HashMap<Double,Integer> melhoresAlphas, Integer nExecucoes, Integer nInstancias) throws IOException{
+		OutputStream out = null;
+		OutputStreamWriter isw = null;
+		BufferedWriter bw = null;
+
+		try {
+			out = new FileOutputStream("instancias/"+nomeArquivo);
+			isw = new OutputStreamWriter(out);
+			bw = new BufferedWriter(isw);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		bw.write("-----------------------------------------------------\n");
+		bw.write("n Execucoes: "+nExecucoes+" | ");
+		bw.write("n Instancias: "+nInstancias+"\n");
+		bw.write("Arquivo: "+nomeArquivo+" \n");
+		for(Double chave : melhoresAlphas.keySet()){
+			bw.write("alpha: "+ chave+ "-> "+ melhoresAlphas.get(chave)+"\n");
+		}
+		bw.write("-----------------------------------------------------\n");
+		
+		bw.close();
+	}
+	
+	
 	public static void imprimeMelhorResultado(Solucao s,String nomeArquivo, int maxIteracoesGRASP,int maxIteracoesVNS, double alpha, long melhorTempoExecucao, long tempoMedio) throws IOException{
 		OutputStream out = null;
 		OutputStreamWriter isw = null;
 		BufferedWriter bw = null;
-//alpha medio		
+		
 		try {
-			out = new FileOutputStream("instancias/"+nomeArquivo+"Result.txt");
+			out = new FileOutputStream("instancias/"+nomeArquivo+"Result.txt", true);
 			isw = new OutputStreamWriter(out);
 			bw = new BufferedWriter(isw);
 		} catch (FileNotFoundException e1) {
