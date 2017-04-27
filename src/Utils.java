@@ -78,7 +78,7 @@ public class Utils {
 		OutputStream out = null;
 		OutputStreamWriter isw = null;
 		BufferedWriter bw = null;
-		
+//alpha medio		
 		try {
 			out = new FileOutputStream("instancias/"+nomeArquivo+"Result.txt");
 			isw = new OutputStreamWriter(out);
@@ -96,6 +96,37 @@ public class Utils {
 		bw.write(" Alpha: "+alpha+"\n");
 		bw.write(" Melhor Tempo: "+melhorTempoExecucao+"ms /");
 		bw.write(" Tempo Medio: "+tempoMedio+"ms \n");
+		bw.write("-----------------------------------------------------\n");
+		
+		bw.write("Custo: "+s.custo()+"\nSolucao:\n");
+		for(Integer v : s.vertices()){
+			bw.write(v+"-");
+		}
+		bw.write(""+s.vertices().get(0)+"\n\n");
+		bw.close();
+	}
+	
+	public static void imprimeResultadoInstancia(Solucao s,String nomeArquivo, int maxIteracoesGRASP,int maxIteracoesVNS, double alpha, long tempoExecucao) throws IOException{
+		OutputStream out = null;
+		OutputStreamWriter isw = null;
+		BufferedWriter bw = null;
+		
+		try {
+			out = new FileOutputStream("instancias/"+nomeArquivo+"Result.txt",true);
+			isw = new OutputStreamWriter(out);
+			bw = new BufferedWriter(isw);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		bw.write("Solucao:\n");
+		bw.write("-----------------------------------------------------\n");
+		bw.write("Arquivo: "+nomeArquivo+" /");
+		bw.write(" Max iteracoes GRASP: "+maxIteracoesGRASP+" /");
+		bw.write(" Max iteracoes VNS: "+maxIteracoesVNS+" /");
+		bw.write(" Alpha: "+alpha+"\n");
+		bw.write(" Melhor Tempo: "+tempoExecucao+"ms /");
 		bw.write("-----------------------------------------------------\n");
 		
 		bw.write("Custo: "+s.custo()+"\nSolucao:\n");

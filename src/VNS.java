@@ -339,8 +339,8 @@ public class VNS {
 			while(k <= kMax){				
 //				System.out.print("vns k: "+k);
 				s1 = shaking(s.clone(), k);
-				s2 = doisOpt(s1.clone());
-//				s2 = buscaLocalRapida(s1.clone(), 1, nIteracoes);
+//				s2 = doisOpt(s1.clone());
+				s2 = buscaLocalRapida(s1.clone(), 1, nIteracoes);
 				
 				if(s2.custo() < s.custo()){
 					s = s2;
