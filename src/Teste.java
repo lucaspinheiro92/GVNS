@@ -10,7 +10,7 @@ import java.util.Random;
 public class Teste {
 	
 	public static void main(String[] args) throws IOException {
-		int nVezes = 5;
+		int nVezes = 1;
 //		String nomeArquivo = "lin15.tsp";
 		int maxIteracoesGRASP = 5;
 		int melhorMaxIteracoesGRASP = -1;
@@ -34,28 +34,25 @@ public class Teste {
 		tiPrograma = System.currentTimeMillis();
 		
 		ArrayList<String> instancias = new ArrayList<>();
-//		instancias.add("pr76.tsp");
-//		instancias.add("pr107.tsp");
-//		instancias.add("d198.tsp");
-//		instancias.add("d493.tsp");
-//		instancias.add("d657.tsp");
-//		instancias.add("gil262.tsp");
 //		instancias.add("lin105.tsp");
-//		instancias.add("p654.tsp");
-//		instancias.add("pcb442.tsp");
 //		instancias.add("pr107.tsp");
-		instancias.add("pr124.tsp");
+//		instancias.add("pr124.tsp");
 //		instancias.add("pr144.tsp");
 //		instancias.add("pr152.tsp");
+//		instancias.add("rat195.tsp");
+//		instancias.add("d198.tsp");
 //		instancias.add("pr226.tsp");
+//		instancias.add("gil262.tsp");
 //		instancias.add("pr264.tsp");
 //		instancias.add("pr299.tsp");
-//		instancias.add("pr439.tsp");
-//		instancias.add("pr76.tsp");
-//		instancias.add("rat195.tsp");
-//		instancias.add("rat575.tsp");
-//		instancias.add("rat783.tsp");
 //		instancias.add("rd400.tsp");
+//		instancias.add("pr439.tsp");
+//		instancias.add("pcb442.tsp");
+//		instancias.add("d493.tsp");
+//		instancias.add("rat575.tsp");
+//		instancias.add("p654.tsp");
+//		instancias.add("d657.tsp");
+//		instancias.add("rat783.tsp");
 		
 		
 		Solucao s = null;
@@ -103,7 +100,7 @@ public class Teste {
 					melhorMaxIteracoesGRASP = maxIteracoesGRASP;
 					melhorMaxIteracoesVNS = maxIteracoesVNS;
 				}
-//				alpha = (alpha + 0.1)%1;
+				alpha = (alpha + 0.1)%1;
 			
 			}
 			tempoMedio = tempoTotal/nVezes;

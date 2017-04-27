@@ -73,21 +73,6 @@ public class Utils {
 		bw.write("-----------------------------------------------------\n");
 	}
 	
-//	public static void imprimeMelhorResultado(Solucao s,String nomeArquivo, int maxIteracoesGRASP,int maxIteracoesVNS, double alpha,OutputStream out, OutputStreamWriter isw,BufferedWriter bw) throws IOException{		
-//		bw.write("Melhor solucao:\n");
-//		bw.write("-----------------------------------------------------\n");
-//		bw.write("Arquivo: "+nomeArquivo+" /");
-//		bw.write(" Max iteracoes GRASP: "+maxIteracoesGRASP+" /");
-//		bw.write(" Max iteracoes VNS: "+maxIteracoesVNS+" /");
-//		bw.write(" Alpha: "+alpha+"\n");
-//		bw.write("-----------------------------------------------------\n");
-//		
-//		bw.write("Custo: "+s.custo()+"\nSolucao:\n");
-//		for(Integer v : s.vertices()){
-//			bw.write(v+"-");
-//		}
-//		bw.write(""+s.vertices().get(0)+"\n\n");
-//	}
 	
 	public static void imprimeMelhorResultado(Solucao s,String nomeArquivo, int maxIteracoesGRASP,int maxIteracoesVNS, double alpha, long melhorTempoExecucao, long tempoMedio) throws IOException{
 		OutputStream out = null;
